@@ -1,0 +1,109 @@
+<div class="h-screen flex">
+  <!-- Sidebar -->
+  <div class="w-[250px] bg-gray-800 text-white flex flex-col">
+    <div class="p-4 font-bold text-lg">Menu</div>
+    <ul class="flex-grow">
+      <li class="p-4 hover:bg-gray-700"><a href="">Dashboard</a></li>
+      <li class="p-4 hover:bg-gray-700"><a href="">Tickets</a></li>
+      
+    </ul>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="flex-grow p-4">
+    <!-- Top Bar with Cards -->
+    <!-- Main Content Area -->
+  <div class="flex-grow p-4">
+    <!-- Top Bar with Cards -->
+    <div class="mb-4">
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Card 1: Total Tickets -->
+        <div class="bg-green-700 text-white p-6 rounded-lg shadow">
+          <h4 class="text-lg font-semibold">Total Tickets</h4>
+          <p class="text-2xl font-bold">{{ totalTickets }}</p> <!-- Total tickets -->
+        </div>
+        <!-- Card 2: Open Tickets -->
+        <div class="bg-blue-700 text-white p-6 rounded-lg shadow">
+          <h4 class="text-lg font-semibold">Open Tickets</h4>
+          <p class="text-2xl font-bold">{{ openTickets }}</p> <!-- Open tickets -->
+        </div>
+        <!-- Card 3: Closed Tickets -->
+        <div class="bg-red-700 text-white p-6 rounded-lg shadow">
+          <h4 class="text-lg font-semibold">Closed Tickets</h4>
+          <p class="text-2xl font-bold">{{ closedTickets }}</p> <!-- Closed tickets -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Ticket Button -->
+    <div class="flex justify-end p-4">
+      <button
+        class="flex flex-row mt-5 items-center mr-[200px] text-white border-2 border-green-700 bg-green-700 rounded-lg py-2 px-16 font-semibold hover:text-green-700 hover:bg-white"
+        (click)="openModal()"
+      >
+        Add Ticket
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="items-center flex flex-col justify-center">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-[1500px]">
+        <!-- Ticket ID Column -->
+        <ng-container matColumnDef="ticketId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-green-700 text-white font-semibold">
+            <h4 class="text-white font-semibold items-center pt-3">Ticket ID</h4>
+          </th>
+          <td mat-cell *matCellDef="let ticket"> {{ ticket.ticketId }} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef class="bg-green-700 text-white">
+            <h4 class="text-white font-semibold items-center pt-3">Description</h4>
+          </th>
+          <td mat-cell *matCellDef="let ticket"> {{ ticket.description }} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="bg-green-700 text-white">
+            <h4 class="text-white font-semibold items-center pt-3">Status</h4>
+          </th>
+          <td mat-cell *matCellDef="let ticket"> {{ ticket.status }} </td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-green-700 text-white">
+            <h4 class="text-white font-semibold items-center pt-3">Date</h4>
+          </th>
+          <td mat-cell *matCellDef="let ticket"> {{ ticket.date | date }} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="bg-green-700 text-white">
+            <h4 class="text-white font-semibold items-center pt-3">Actions</h4>
+          </th>
+          <td mat-cell *matCellDef="let ticket">
+            <button mat-icon-button color="primary" (click)="openModal(ticket)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTicket(ticket.ticketId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Header Row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <!-- Data Row -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Paginator -->
+      <mat-paginator class="w-[1500px]" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of tickets"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '~@angular/material/theming'; // Import Angular Material's theming functions
+
+// Define the primary and accent colors
+$app-primary: mat-palette($mat-green);  // Use green as the primary color
+$app-accent: mat-palette($mat-light-green);  // You can choose another accent like light green or adjust it
+$app-warn: mat-palette($mat-red);  // Default warning color is red
+
+// Define the theme
+$app-theme: mat-light-theme(
+  (
+    color: (
+      primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    ),
+    background: (
+      status-bar: mat-color($app-primary),
+      app-bar: mat-color($app-primary, 700),
+      background: mat-color($app-primary, 50),  // Background is white (or near white)
+      hover: mat-color($app-primary, 100),  // White background for hover state
+    )
+  )
+);
+
+// Include Angular Material core styles and your custom theme
+@include mat-core();
+@include angular-material-theme($app-theme);
+/* Apply green background and white text to the header row */
+.mat-sort-header .mat-sort-header-content {
+  color: white; /* Change the color of the sorting arrow */
+}
+
+.mat-sort-header-ascending .mat-sort-header-content,
+.mat-sort-header-descending .mat-sort-header-content {
+  color: white; /* Keep the sorting arrow color white when sorted */
+}

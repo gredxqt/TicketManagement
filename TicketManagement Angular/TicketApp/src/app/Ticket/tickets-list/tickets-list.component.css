@@ -1,0 +1,11 @@
+
+  ::ng-deep .mat-sort-header-arrow {
+    color: white; /* Change the color of the sorting arrow */
+  }
+  
+  /* Optionally set the arrow color when sorted */
+  ::ng-deep .mat-sort-header-ascending .mat-sort-header-stem .mat-sort-header-indicator,
+  ::ng-deep .mat-sort-header-descending .mat-sort-header-stem .mat-sort-header-indicator {
+    color: white; /* Keep the sorting arrow color white when sorted */
+  }
+  
